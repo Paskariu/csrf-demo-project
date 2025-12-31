@@ -1,0 +1,52 @@
+services:
+  vulnerable-bank:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+    container_name: csrf-vulnerable-bank
+    ports:
+      - "8080:80"
+    volumes:
+      - ./vulnerable:/var/www/html
+    environment:
+      - TZ=UTC
+      - APP_NAME=Vulnerable Bank
+    restart: unless-stopped
+    networks:
+      - csrf-network
+
+  protected-bank:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+    container_name: csrf-protected-bank
+    ports:
+      - "8081:80"
+    volumes:
+      - ./protected:/var/www/html
+    environment:
+      - TZ=UTC
+      - APP_NAME=Protected Bank
+    restart: unless-stopped
+    networks:
+      - csrf-network
+
+  attacker-site:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+    container_name: csrf-attacker-site
+    ports:
+      - "8082:80"
+    volumes:
+      - ./attacker:/var/www/html
+    environment:
+      - TZ=UTC
+      - APP_NAME=Attacker Site
+    restart: unless-stopped
+    networks:
+      - csrf-network
+
+networks:
+  csrf-network:
+    driver: bridge

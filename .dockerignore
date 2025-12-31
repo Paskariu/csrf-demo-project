@@ -1,0 +1,10 @@
+# Docker ignore file for CSRF demo
+.git
+.gitignore
+README.md
+*.md
+.vscode
+.idea
+*.log
+.DS_Store
+Thumbs.db
